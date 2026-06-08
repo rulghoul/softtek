@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import softek.ghoulrul.backend.utils.excel.Celda;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -40,4 +43,16 @@ public class ActivoTecnologicoResponseDTO {
 
     @Schema(description = "Nombre de la categoría", example = "Laptops")
     private String categoria;
+
+    public List<Celda> toCeldaList(){
+        List<Celda> result = new ArrayList<>();
+        result.add(new Celda(folioInventario, "normal", 1));
+        result.add(new Celda(numeroDeSerie, "normal", 1));
+        result.add(new Celda(marcaModelo, "normal", 1));
+        result.add(new Celda(estado, "normal", 1));
+        result.add(new Celda(costoAdquisicion,  "moneda", 1));
+        result.add(new Celda(fechaHora,  "normal", 1));
+        result.add(new Celda(categoria,  "normal", 1));
+        return result;
+    }
 }
