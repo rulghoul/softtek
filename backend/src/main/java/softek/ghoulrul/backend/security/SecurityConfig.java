@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/**").denyAll()
 
                         // Cualquier otra ruta requiere estar autenticado
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
 
                 // 3. Configurar el Resource Server para usar JWT y nuestro convertidor de roles

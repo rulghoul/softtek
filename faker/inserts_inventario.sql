@@ -1,13 +1,6 @@
-CREATE TABLE inventario.categorias (
-	id BIGINT UNSIGNED auto_increment NOT NULL,
-	nombre varchar(100) NOT NULL,
-	codigo_prefijo VARCHAR(100) NOT NULL,
-	CONSTRAINT Categorias_PK PRIMARY KEY (id)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COMMENT='Catalogo de categorias';
-
+-- ==========================================
+-- INSERTS PARA: inventario.categorias
+-- ==========================================
 INSERT INTO inventario.categorias (id, nombre, codigo_prefijo) VALUES
 (1, 'Laptop', 'LAP'),
 (2, 'Monitor', 'MON'),
@@ -19,24 +12,11 @@ INSERT INTO inventario.categorias (id, nombre, codigo_prefijo) VALUES
 (8, 'Teléfonos VoIP', 'VOI'),
 (9, 'Switches', 'SWI'),
 (10, 'Routers', 'ROU'),
-(11, 'Impresoras', 'IMP'),
-(12, 'Discos Duros', 'HDD');
+(11, 'Impresoras', 'IMP');
 
-CREATE TABLE `activos_tecnologicos` (
-  `identificador_tecnico` uuid NOT NULL,
-  `folio_inventario` varchar(100) NOT NULL,
-  `numero_de_serie` varchar(100) NOT NULL,
-  `marca_modelo` varchar(100) DEFAULT NULL,
-  `estado` varchar(100) NOT NULL,
-  `costo_adquisicion` double DEFAULT NULL,
-  `fecha_hora` timestamp NULL DEFAULT NULL,
-  `categoria` bigint(20) unsigned DEFAULT NULL,
-  PRIMARY KEY (`identificador_tecnico`),
-  UNIQUE KEY `activos_tecnologicos_unique` (`numero_de_serie`),
-  KEY `activos_tecnologicos_Categorias_FK` (`categoria`),
-  CONSTRAINT `activos_tecnologicos_Categorias_FK` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci COMMENT='Activos tecnologicos';
-
+-- ==========================================
+-- INSERTS PARA: activos_tecnologicos
+-- ==========================================
 INSERT INTO activos_tecnologicos (identificador_tecnico, folio_inventario, numero_de_serie, marca_modelo, estado, costo_adquisicion, fecha_hora, categoria) VALUES
 ('f299c350-5db7-499e-b292-832f2bcc46e1', 'TEC-2024-001', 'SN-C2F60437-18934', 'Logitech', 'Baja', 4185.55, '2025-11-16 10:24:57', 3),
 ('d1fd8c0f-0110-4cf6-94ca-0f2f6c497088', 'TEC-2024-002', 'SN-D2737DA1-28160', 'Logitech', 'En Mantenimiento', 4308.13, '2025-12-23 04:21:01', 3),
@@ -158,10 +138,3 @@ INSERT INTO activos_tecnologicos (identificador_tecnico, folio_inventario, numer
 ('6aecbfe7-0fa0-492a-a78f-1ef0d0f4e70a', 'TAB-2025-118', 'SN-87048588-73684', 'ASUS', 'En Mantenimiento', 1566.53, '2025-02-03 17:54:11', 7),
 ('33738461-aad3-4a44-9413-ae1f4a8322bf', 'IMP-2025-119', 'SN-9AC169DB-40211', 'DELL', 'En Mantenimiento', 1146.97, '2025-04-25 18:48:55', 11),
 ('82b5631f-e927-4cbe-8992-3e905033c311', 'LAP-2024-120', 'SN-C886D815-80272', 'HP', 'En Mantenimiento', 2902.64, '2026-04-15 14:48:50', 1);
-
-
-
-CREATE USER IF NOT EXISTS 'keycloak'@'%' IDENTIFIED BY 'contraseña';
-CREATE DATABASE IF NOT EXISTS keycloak;
-GRANT ALL PRIVILEGES ON keycloak.* TO 'keycloak'@'%';
-FLUSH PRIVILEGES;

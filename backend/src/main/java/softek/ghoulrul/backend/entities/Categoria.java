@@ -25,7 +25,7 @@ public class Categoria {
     @Column(name = "nombre", length = 100)
     private String nombre;
 
-    @Column(name = "codigo-prefijo",  length = 100)
+    @Column(name = "codigo_prefijo",  length = 100)
     private String codigoPrefijo;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

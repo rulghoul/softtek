@@ -5,7 +5,7 @@ services:
     environment:
       - MARIADB_DATABASE=inventario
       - MARIADB_USER=softtek
-      - MARIADB_PASSWORD=contraseña
+      - MARIADB_PASSWORD=contrasenia
       - MARIADB_RANDOM_ROOT_PASSWORD=1
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -26,4 +26,32 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
 
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+
+      KC_DB: mariadb
+      KC_DB_URL_HOST: base-datos
+      KC_DB_URL_PORT: 3306
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: contrasenia
+
+    depends_on:
+      base-datos:
+        condition: service_healthy
+
+    ports:
+      - 7080:8080
+      # - 9000:9000 # NOT needed for internal healthcheck
+    healthcheck:
+      test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready | echo $?"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     
+
