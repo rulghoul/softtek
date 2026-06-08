@@ -1,37 +1,7 @@
 services:
-  keycloak-jwt:
-    image: keycloak/keycloak:26.6
-    container_name: keycloak
-    entrypoint: [ "/bin/bash", "-c" ]
-    command: >
-      "/opt/keycloak/bin/kc.sh build --health-enabled=true &&
-       /opt/keycloak/bin/kc.sh start --optimized"
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
 
-      KC_HTTP_ENABLED: true
-      KC_HEALTH_ENABLED: true
-      KC_METRICS_ENABLED: true
-
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 8080
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
-
-    ports:
-      - 7080:8080
-      # - 9000:9000 # NOT needed for internal healthcheck
-    healthcheck:
-      test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready | echo $?"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 40s
-    restart: unless-stopped
-    
   base-datos:
-    image: mariadb:lts
+    image: mariadb:11.8.8-noble
     environment:
       - MARIADB_DATABASE=inventario
       - MARIADB_USER=softtek
@@ -48,3 +18,12 @@ services:
     ports:
      - 3306:3306
       
+
+  keycloak:
+    image: keycloak/keycloak:26.6.3
+    command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+
+    

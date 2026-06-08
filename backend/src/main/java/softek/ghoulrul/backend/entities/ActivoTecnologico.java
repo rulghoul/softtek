@@ -20,11 +20,8 @@ public class ActivoTecnologico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, updatable = false)
-    private UUID id;
-
     @Column(name = "identificador_tecnico", length = 100)
-    private String identificadorTecnico;
+    private UUID identificadorTecnico;
 
     @Column(name = "folio_inventario", length = 100)
     private String folioInventario;

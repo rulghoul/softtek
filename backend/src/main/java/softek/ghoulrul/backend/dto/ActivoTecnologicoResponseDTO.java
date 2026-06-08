@@ -12,7 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ActivoTecnologicoResponseDTO {
-    private UUID id;
     private String identificadorTecnico;
     private String folioInventario;
     private String numeroDeSerie;
